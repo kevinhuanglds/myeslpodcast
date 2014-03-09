@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+	<head>
+		
+
+	</head>
+	<body>
+		<audio controls id="aud">
+		  <source src="horse.ogg" type="audio/ogg">
+		  <source src="media/audio/ESLPod980.mp3" type="audio/mpeg">
+			Your browser does not support the audio element.
+		</audio>
+
+		<Button onclick="startPlay();">Play</Button>
+		<Button onclick="pausePlay();">Pause</Button>
+		<Button onclick="setTime(1000)">Jump</Button>
+
+		<script>
+			var elm = document.getElementById('aud');
+			var isPaused = true ;
+
+			var init = function() {
+				elm.timeupdate = function(evt) {
+					console.log(evt);
+				};
+			}
+
+			var startPlay = function() {
+				isPaused = false ;
+				elm.play();
+
+				raisePlayEvent();
+			};
+			var pausePlay = function() {
+				isPaused = true;
+				elm.pause();
+			};
+
+			var setTime = function(targetTime) {
+				elm.currentTime = targetTime ;
+			}
+
+			var raisePlayEvent = function() {
+				console.log(elm.currentTime);
+
+				if (!isPaused)
+					setTimeout(raisePlayEvent, 100);
+
+			};
+
+			init();
+		</script>
+	</body>
+</html>
